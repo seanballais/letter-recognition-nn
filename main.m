@@ -53,12 +53,6 @@ file_title = sprintf('test_results/%d---%s|%d|%d|%d|%f|%d|%d|%d|%d|%f|%d|%d', ..
                      mutationProbability, ...
                      m_training,
                      m_testing);
-% Note that each line in the files equates to one generation. The generation
-% progresses from the oldest to the youngest in a top-to-bottom approach.
-accuracy_filename = sprintf('%s-accuracy.csv', file_title);
-fitness_filename = sprintf('%s-fitness.csv', file_title);
-accuracy_file = fopen(accuracy_filename, 'w');
-fitness_file = fopen(fitness_filename, 'w');
 
 data = csvread('data/letter-recognition.csv');
 training_data = data(1:m_training, :);
@@ -74,6 +68,13 @@ theta1 = zeros(hidden_layer_size, 1 + input_layer_size);
 theta2 = zeros(num_labels, 1 + hidden_layer_size);
 
 if (useGA == 1)
+  % Note that each line in the files equates to one generation. The generation
+  % progresses from the oldest to the youngest in a top-to-bottom approach.
+  accuracy_filename = sprintf('%s-accuracy.csv', file_title);
+  fitness_filename = sprintf('%s-fitness.csv', file_title);
+  accuracy_file = fopen(accuracy_filename, 'w');
+  fitness_file = fopen(fitness_filename, 'w');
+  
   [thetas1, thetas2] = generateInitialPopulation(numPopulation, ...
                                                  input_layer_size,
                                                  hidden_layer_size,
@@ -153,6 +154,10 @@ if (useGA == 1)
     write_data(populationCosts, fitness_file);
     write_data(specimenAccuracies, accuracy_file);
   endfor
+  
+  % Clean up.
+  fclose(accuracy_file);
+  fclose(fitness_file);
 else
   bp_accuracy_filename = sprintf('%s-bp_accuracy.csv', file_title);
   bp_fitness_filename = sprintf('%s-bp_cost.csv', file_title);
@@ -204,7 +209,3 @@ else
   fclose(bp_accuracy_file);
   fclose(bp_fitness_file);  
 endif
-
-% Clean up.
-fclose(accuracy_file);
-fclose(fitness_file);
