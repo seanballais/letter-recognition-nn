@@ -6,7 +6,7 @@ def generate_ga_parameters():
     lambda_values = [ 0.0001, 0.001, 0.01, 0.1, 1.0, 10 ]
     use_ga = 1
     population_sizes = [ 5, 10, 15 ]
-    num_random_parents = [ 1, 2, 3, 4 ]
+    num_random_parents = [ 0, 1, 2, 3, 4 ]
     num_generations = [ 10, 10000, 15000 ]
     mutation_probabilities = [ 0.07, 0.1 ]
     training_items = [ 16000, 10000, 8000, 3000, 1000 ]
