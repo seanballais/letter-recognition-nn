@@ -8,7 +8,7 @@ def generate_parameters(use_ga=0):
 
     lambda_values = [ 0.0001, 0.001, 0.01, 0.1, 1.0, 10 ]
     population_sizes = [ 10 ] if use_ga else [ 50 ]
-    num_random_parents = [ 0, 1 ] if use_ga else [ 0 ]
+    num_random_parents = [ 0, 1, 4 ] if use_ga else [ 0 ]
     num_generations = [ 10, 15000 ] if use_ga else [ 5 ]
     mutation_probabilities = [ 0.1 ] if use_ga else [ 0 ]
     training_items = 16000
