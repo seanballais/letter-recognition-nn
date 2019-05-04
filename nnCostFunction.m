@@ -67,9 +67,9 @@ for y_i = 1:m
   Y(y_value + 1, y_i) = 1;
 endfor
 
-fprintf('\n');
+%fprintf('\n');
 for i = 1:m
-  fprintf('Training item number: %d\r', i)
+  %fprintf('Training item number: %d\r', i)
   
   a1 = [1; X(i, :)'];
   
@@ -93,7 +93,7 @@ for i = 1:m
   Theta2_grad += delta3 * a2';
 endfor
 
-fprintf('\n');
+%fprintf('\n');
 
 J = (1 / m) * J;
 Theta1_grad = (1 / m) * Theta1_grad;

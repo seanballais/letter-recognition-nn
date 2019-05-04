@@ -1,7 +1,7 @@
 %% Initialization
 clear; close all; clc;
 
-fprintf('\nInitializing the neural network parameters...\n');
+%fprintf('\nInitializing the neural network parameters...\n');
 
 input_layer_size = 16;
 hidden_layer_size = 20;
@@ -81,13 +81,14 @@ if (useGA == 1)
                                                  num_labels);
   populationCosts = zeros(numPopulation, 1);
   specimenAccuracies = zeros(numPopulation, 1);
-  
+  %{
   fprintf('===\n------------------------------\n');
   fprintf('Generation #1\n');
   fprintf('Creating new population...\n');
+%}
   for i = 1:numPopulation
-    fprintf('    Specimen %d out of %d\n', i, numPopulation);
-    fprintf('------------------------------\n');
+%    fprintf('    Specimen %d out of %d\n', i, numPopulation);
+%    fprintf('------------------------------\n');
     thetas1(:, :, i) = randInitializeWeights(input_layer_size, ...
                                              hidden_layer_size);
     thetas2(:, :, i) = randInitializeWeights(hidden_layer_size, ...
@@ -108,17 +109,17 @@ if (useGA == 1)
                                    %% with 0).
     specimenAccuracies(i) = mean(double(pred == y_testing)) * 100;
 
-    fprintf('\nSpecimen accuracy: %f\n', mean(double(pred == y_testing)) * 100); 
+ %   fprintf('\nSpecimen accuracy: %f\n', mean(double(pred == y_testing)) * 100); 
   endfor
-  fprintf('Current population fitness\n');
-  disp(populationCosts);
+%  fprintf('Current population fitness\n');
+%  disp(populationCosts);
   write_data(populationCosts, fitness_file);
   write_data(specimenAccuracies, accuracy_file);
   
   for g = 2:numGenerations
-    fprintf('===\n------------------------------\n');
-    fprintf('Generation #%d\n', g);
-    fprintf('Creating new population...\n');
+%    fprintf('===\n------------------------------\n');
+%    fprintf('Generation #%d\n', g);
+%    fprintf('Creating new population...\n');
     [ thetas1, thetas2 ] = generateNewGeneration(populationCosts, ...
                                                  thetas1, ...
                                                  thetas2, ...
@@ -129,8 +130,8 @@ if (useGA == 1)
                                                  num_random_parents);
     %% Compute the cost of each weight.
     for i = 1:numPopulation
-      fprintf('    Specimen %d out of %d\n', i, numPopulation);
-      fprintf('------------------------------\n');
+%      fprintf('    Specimen %d out of %d\n', i, numPopulation);
+%      fprintf('------------------------------\n');
       nn_params = [thetas1(:, :, i)(:); thetas2(:, :, i)(:)];
       populationCosts(i) = nnCostFunction(nn_params, ...
                                           input_layer_size, ...
@@ -147,10 +148,10 @@ if (useGA == 1)
                                     %% with 0) .
       specimenAccuracies(i) = mean(double(pred == y_testing)) * 100;
                                     
-      fprintf('\nSpecimen #%d accuracy: %f\n', i, mean(double(pred == y_testing)) * 100); 
+%      fprintf('\nSpecimen #%d accuracy: %f\n', i, mean(double(pred == y_testing)) * 100); 
     endfor
-    fprintf('Current population fitness\n');
-    disp(populationCosts);
+%    fprintf('Current population fitness\n');
+%    disp(populationCosts);
     write_data(populationCosts, fitness_file);
     write_data(specimenAccuracies, accuracy_file);
   endfor
@@ -171,7 +172,7 @@ else
     initial_nn_params = [initial_theta1(:); initial_theta2(:)]; % Time to unroll the weights.
 
     %% Train the neural network.
-    fprintf('\nTraining the neural network... \n');
+%    fprintf('\nTraining the neural network... \n');
 
     options = optimset('MaxIter', numPopulation);
 
@@ -189,10 +190,10 @@ else
     theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):end), ...
                      num_labels, (hidden_layer_size + 1));
 
-    fprintf('Done.\n');
+  %  fprintf('Done.\n');
    
     %% Test the trained neural network.
-    fprintf('\nTesting neural network...\n');
+  %  fprintf('\nTesting neural network...\n');
     pred = predict(theta1, theta2, X_testing) - 1; %% Subtract by one because the
                                                    %% output layer starts with 1 
                                                    %% but the alphabetical
@@ -201,7 +202,7 @@ else
                                                    %% with 0) .
     test_acccuracies(i) = mean(double(pred == y_testing)) * 100;
   
-    fprintf('\nTraining set accuracy: %f\n', mean(double(pred == y_testing)) * 100);
+   % fprintf('\nTraining set accuracy: %f\n', mean(double(pred == y_testing)) * 100);
   endfor
   
   write_data(test_acccuracies, bp_accuracy_file);

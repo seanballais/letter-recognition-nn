@@ -10,10 +10,10 @@ function [thetas1, thetas2] = generateNewGeneration(populationCosts, ...
     
     parentIndices = selectParents(populationCosts, ...
                                   num_random_parents);
-    fprintf('Selected Parent Costs\n');
-    for i = 1:columns(parentIndices)
-      fprintf('  Parent #%d Cost: %f\n', i, populationCosts(parentIndices(i)));
-    endfor
+%    fprintf('Selected Parent Costs\n');
+%    for i = 1:columns(parentIndices)
+%      fprintf('  Parent #%d Cost: %f\n', i, populationCosts(parentIndices(i)));
+%    endfor
 
     parentsTheta1 = zeros(rows(thetas1(:, :, parentIndices(1))),
                           columns(thetas1(:, :, parentIndices(1))),
