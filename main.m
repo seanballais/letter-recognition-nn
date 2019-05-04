@@ -17,7 +17,7 @@ mutationProbability = 0.1;
 % Load the data.
 m_training = 300; % As per the number of training data used in the paper the
 m_testing = 4000;   % data set has been originally used in.
-
+%{
 if rows(argv()) > 0
   arg_list = argv();
   
@@ -37,7 +37,7 @@ if rows(argv()) > 0
                                          % training data used in the paper the
   m_testing = str2num(arg_list(11){1});  % data set has been originally used in.
 endif
-
+%}
 datetime = strftime ("%Y-%m-%d--%H-%M-%S", localtime (time ()));
 file_title = sprintf('test_results/%d---%s|%d|%d|%d|%f|%d|%d|%d|%d|%f|%d|%d', ...
                      useGA, ...

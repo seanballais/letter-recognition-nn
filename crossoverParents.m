@@ -19,11 +19,9 @@ function theta = crossOverWithMutation(parentsTheta, ...
   theta = zeros(1, columns(parentsTheta));
   for t_i = 1:columns(theta)
     theta(t_i) = parentsTheta(randi(2), t_i);
-    if (rand(1) <= mutationProbability)
-      % Mutate current gene.
-      parentGeneThetaAvg = (parentsTheta(1, t_i) + parentsTheta(2, t_i)) / 2;
-      mutationDelta = [-1, 1](randi(2)) * parentGeneThetaAvg;
-      theta(t_i) = theta(t_i) + mutationDelta;
-    endif
   endfor
+  
+  % Mutate random gene.
+  randomGeneIndex = randi(columns(parentsTheta));
+  theta(randomGeneIndex) = theta(randomGeneIndex) * (rand(1) + 0.5);
 endfunction
