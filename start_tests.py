@@ -19,7 +19,7 @@ def start_tests(parameters, interpreter_exec_cmd):
 
         command = interpreter_exec_cmd + ['-W', 'main.m'] + test_parameters       
         print('\nTest Command: `{}`'.format(' '.join(command)))
-        subprocess.run(command)
+        subprocess.Popen(command)
 
         print('---')
 
