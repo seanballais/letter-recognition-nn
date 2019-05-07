@@ -1,9 +1,11 @@
 import glob
 import sys
 
-from textwrap import wrap
 import matplotlib.pyplot as plt
 import numpy as np
+
+
+plt.rcdefaults()
 
 
 def main(filename_pattern, output_file):
@@ -14,6 +16,8 @@ def main(filename_pattern, output_file):
 
     cost_files.sort()
 
+    plt.figure(figsize=(20, 10))
+
     lambda_values = [ 0.0001, 0.001, 0.01, 0.1, 1.0, 10 ];
     x = np.arange(100)  # Since we know that we used 100 iterations.
     for cost_file in cost_files:
@@ -22,10 +26,9 @@ def main(filename_pattern, output_file):
 
         plt.plot(x, [ float(cost_val) for cost_val in cost_vals ])
 
-    plot_title = '\n'.join(wrap('Cost of Models, Optimized Via '
-                                + 'Backpropagation and With Varying λ Values, '
-                                + 'As Number of Iterations Increase',
-                                60))
+    plot_title = ('Cost of Models, Optimized Via '
+                  + 'Backpropagation and With Varying λ Values, '
+                  + 'As Number of Iterations Increase')
     plt.title(plot_title)
     plt.xlabel('Number of Iterations')
     plt.ylabel('Cost')
