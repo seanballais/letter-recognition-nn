@@ -1,11 +1,13 @@
 import glob
 import sys
 
+from textwrap import wrap
 import matplotlib.pyplot as plt
 import numpy as np
 import statistics
 
 
+plt.figure(figsize=(8.5, 6.0))
 plt.rcdefaults()
 
 
@@ -19,12 +21,11 @@ def main(data_filename, output_dir, hexcolour):
                 data = line.strip().split(',')
                 generation_data.append(statistics.mean(map(float, data)))
 
-    plt.figure(figsize=(20, 10))
-
     line_colour = '#{}'.format(hexcolour)
-    plt.plot(x, generation_data, linewidth=0.5, color=line_colour)
+    plt.plot(x, generation_data, linewidth=1.0, color=line_colour)
 
-    output_filename = data_filename[:len(data_filename) - 4]
+    output_filename = data_filename[:len(data_filename) - 4].split('/')
+    output_filename = output_filename[len(output_filename) - 1]
     data_metadata = output_filename.split('|')
     lambda_value = float(data_metadata[4])
     num_random_parents = int(data_metadata[7])
@@ -38,6 +39,7 @@ def main(data_filename, output_dir, hexcolour):
                   + 'Algorithm and With λ = {} '.format(lambda_value)
                   + 'and {} Random Parents, '.format(num_random_parents)
                   + 'As Number of Generations Increase')
+    plot_title = '\n'.join(wrap(plot_title, 60))
 
     if data_type == 'Accuracy':
         y_label = 'Accuracy (in Percentage)'
@@ -48,7 +50,7 @@ def main(data_filename, output_dir, hexcolour):
     plt.xlabel('Number of Generations')
     plt.ylabel(y_label)
 
-    plt.show()
+    plt.savefig('{}/{}.png'.format(output_dir, output_filename))
 
 
 if __name__ == '__main__':

@@ -1,6 +1,7 @@
 import operator
 import sys
 
+from textwrap import wrap
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -18,7 +19,6 @@ def main(data_file, output_file, hexcolour):
     class_indexes = np.arange(len(lambda_values))
     graph_data = list(zip(lambda_values, accuracies))
 
-    plt.figure(figsize=(20, 10))
     plt.bar(class_indexes,
             accuracies,
             align='center',
@@ -26,6 +26,7 @@ def main(data_file, output_file, hexcolour):
     plot_title = ('Accuracy of Models, Optimized Via '
                   + 'Backpropagation and With Varying λ Values, '
                   + 'With 100 Iterations', 100)
+    plot_title = '\n'.join(wrap(plot_title, 60))
     plt.title(plot_title)
     plt.xlabel('Lambda Values')
     plt.ylabel('Accuracy (in Percentage)')
